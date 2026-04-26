@@ -35,29 +35,19 @@ class OverlayWindow(QWidget):
         rx, ry = self.region['left'], self.region['top']
         rw = self.region['width']
 
-        # 화면 전체 범위를 커버하도록 연장
-        x_start = -rw
-        x_end = rw * 2
+        x_start = -rw * 1.5 
+        x_end = rw + 100
 
         def get_screen_pt(lx):
             return QPointF(rx + lx, ry + (a*lx**2 + b*lx + c))
 
-        x_vals = np.linspace(x_start, x_end, 600)
-        path_pts = []
-        for x in x_vals:
-            pt = get_screen_pt(x)
-            if -500 < pt.y() < 2000:
-                path_pts.append(pt)
+        x_vals = np.linspace(x_start, x_end, 500)
+        path_pts = [get_screen_pt(x) for x in x_vals if -500 < (a*x**2 + b*x + c) < 1500]
 
         if len(path_pts) < 2: return
 
-        # 발광 효과
-        glow = QColor(self.line_color.red(), self.line_color.green(), self.line_color.blue(), 60)
-        painter.setPen(QPen(glow, 10, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-        for j in range(len(path_pts)-1):
-            painter.drawLine(path_pts[j], path_pts[j+1])
+        painter.setPen(QPen(QColor(self.line_color.red(), self.line_color.green(), self.line_color.blue(), 60), 10, Qt.SolidLine, Qt.RoundCap))
+        for j in range(len(path_pts)-1): painter.drawLine(path_pts[j], path_pts[j+1])
         
-        # 메인 선
-        painter.setPen(QPen(self.line_color, 3, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-        for j in range(len(path_pts)-1):
-            painter.drawLine(path_pts[j], path_pts[j+1])
+        painter.setPen(QPen(self.line_color, 3, Qt.SolidLine, Qt.RoundCap))
+        for j in range(len(path_pts)-1): painter.drawLine(path_pts[j], path_pts[j+1])
