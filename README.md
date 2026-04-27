@@ -4,6 +4,10 @@ Parabola Extender는 웹 브라우저나 데스크탑 화면에 나타나는 미
 
 > **[Latest Update]** 최근 업데이트를 통해 골대와 공을 자동으로 연결하는 **'고정 모드(Fixed Mode)'**가 추가되었습니다.
 
+![image1](1111.jpeg)
+
+![image1](3333.jpeg)
+
 ## ✨ 주요 기능
 
 - **🚀 [NEW] 고정 모드 (Fixed Mode)**: 
